@@ -1,0 +1,105 @@
+unique : "./trainingoutput/"
+datasets : {}
+ignore_classes : 
+  - "Unknown"
+  - "Non-plastic"
+  - "N-MP"
+  - "Petroleum wax"
+  - "Unidentifiable"
+  - "Unidentifiable "
+  - "ABS"
+  - "latex"
+  - "Latex"
+  - "noInfo"
+  - "Cellulose"
+  - "phthalate"
+collect_terms : 
+    HDPE : 'PE'
+    LDPE : 'PE'
+    LLDPE : 'PE'
+    Other PE : 'PE'
+    d-PE : 'PE'
+data(%) for testing : .35
+data(%) for validation : .35
+use resizing : TRUE
+resize size : 4000
+use pooling : FALSE
+pooling-window size : 3
+pooling-strides : 1 
+pooling-padding : 'same'
+label_column : 'identified' 
+model_name : 'Single_Run'
+network_layers : 
+   input : 
+         type : 'dense'
+         units : '64'
+         activation : 'relu'
+         initializer : 'bias'
+         regularizer : 'l1_l2'  
+   hidden : 
+     type : 'dense'
+     units : '64' 
+     activation : 'relu' 
+     initializer : 'bias' 
+     regularizer : 'l1_l2'  
+   hidden : 
+     type : 'dense'
+     units : '64' 
+     activation : 'relu' 
+     initializer : 'bias' 
+     regularizer : 'l1_l2'  
+   hidden : 
+     type : 'dense'
+     units : '64' 
+     activation : 'relu' 
+     initializer : 'bias' 
+     regularizer : 'l1_l2'  
+   output : 
+      type : ''dense' 
+      units : ''auto'  
+      activation : ''softmax'     
+      initializer : ''bias' None)
+training_metrics : 
+       categorical_accuracy : 'CAC'
+       precision : 'PRE'
+       recall : 'REC
+       auc : 'AUC
+baseline_shift : 0
+baseline_fix : "none" # airPLS none wavenumbermult combo
+balance_via_oversample : FALSE
+oversampler : 
+        RandomOverSampler #RandomOverSampler KMeansSMOTE SVMSMOTE ADASYN
+max_epochs : 10_000
+steps_per_epoch : 20 #default 1      
+batch_size : "None" #default none     
+loss : 
+          name : "cfocal"
+          gamma : "8"    
+monitor_metric : "loss"
+minimum_change : "0.0001"
+restore_top_weight : "True"
+verbose_monitor : "1"
+verbose_monitor_ES : "1"
+verbose_monitor_CP : "0"                                    
+monitor_patience : "500"                                          
+
+start_from_epoch : "300"                   
+monitor_goal : "min" #min            
+optimizer : 
+               learning_rate : "0.01"
+               beta_1 : "0.9"
+               beta_2 : "0.999"
+               epsilon : "1e-07"
+               amsgrad : false
+               weight_decay : ""
+               clipnorm : ""
+               clipvalue : ""
+global_clipnorm" : ""
+use_ema : false
+ema_momentum : ".99"        
+ema_overwrite_frequency : ""            
+jit_compile : true"name" : "Adam"}}
+LR_reducer : 
+            monitor_val_loss : minfactor : .999                     
+patience_val_loss : minfactor : .999              
+min_lr_val_loss : minfactor : .999  
