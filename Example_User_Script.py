@@ -5,7 +5,29 @@ from functions import network, plotting, datawrangler
 
 model_parameters = {
     'unique'                :'./trainingoutput/',
-    'datasets'            :{},
+    'datasets'            :{
+        'Kedzierski' : {'path':'./data/Mode_data_A.csv',
+                        'type':'file',
+                        'name':'Kedzierski',
+                        'label_column':'identified'},
+        
+        'jung'     : {'path':'./data/plain_jung_data.csv',
+                      'type':'file',
+                      'name':'jung',
+                      'label_column':'identified'},
+        'carbery'  : {'path':'./data/known_degradation_MC.csv',
+                      'type':'file',
+                      'name':'carbery',
+                      'label_column':'identified'},
+        'carbery_loose' : {'path':'./data/loose/',
+                           'type':'folder',
+                           'name':'carbery_loose',
+                           'label_column':'identified'},
+        'Brignac'       :{'path':'./data/plain_Brignac.csv',
+                          'type':'file',
+                          'name':'Brignac',
+                          'label_column':'ART-FT-IR polymer ID'}
+                       },
     'ignore_classes'        :['Unknown',
                               'Non-plastic',
                               'N-MP',
@@ -60,19 +82,15 @@ model_parameters = {
     'pooling - padding'     :'same',
     'label_column'          :'identified',
     'model_name'            :'Single_Run',
-    'network_layers'        :{1:{"name":'input',
+    'network_layers'        :{0:{"name":"preprocessing",
+                                 "type":"minmax"},
+                              1:{"name":"preprocessing",
+                                 "type":"areaflip"},
+                              2:{"name":'input',
                                  "type":'dense',
                                  "neurons":64,
                                  "activation":'relu',
                                  "init":"ones",
-                                 "bias":True,
-                                 "L1":True,
-                                 "L2":True},
-                              2:{"name":'Hidden',
-                                 "type":'dense',
-                                 "neurons":64,
-                                 "activation":'relu',
-                                 "init":"GlorotUniform",
                                  "bias":True,
                                  "L1":True,
                                  "L2":True},
@@ -84,7 +102,15 @@ model_parameters = {
                                  "bias":True,
                                  "L1":True,
                                  "L2":True},
-                              4:{"name":'Output',
+                              4:{"name":'Hidden',
+                                 "type":'dense',
+                                 "neurons":64,
+                                 "activation":'relu',
+                                 "init":"GlorotUniform",
+                                 "bias":True,
+                                 "L1":True,
+                                 "L2":True},
+                              5:{"name":'Output',
                                  "type":'dense',
                                  "neurons":1,
                                  "activation":'softmax',
@@ -148,10 +174,19 @@ model_parameters = {
 
 model = network.model("ModelName")
 
-model.setConfig(model_parameters)
-model.getConfig()
+model.setConfig(model_parameters, mode="replace")
 
-model.build()
+model.ingestData()
+
+#model.loadData()
+
+#model.preProcessData()
+
+#model.build()
+
+#model.train()
+
+#model.evaluate()
 
 
 # =============================================================================
