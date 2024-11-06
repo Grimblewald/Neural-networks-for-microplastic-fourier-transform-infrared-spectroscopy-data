@@ -1,0 +1,224 @@
+LR_reducer:
+  cooldown: 5
+  factor: 0.85
+  min_lr: 8.0e-06
+  mode: min
+  monitor: loss
+  patience: 10
+balance_via_oversample: true
+baseline_fix: none
+baseline_shift: 0
+batch_params:
+  batch_mode: normal
+  batch_size: null
+checkpoints:
+  EarlyStopping: true
+  SaveCheckpoints: true
+  Tensorboard: true
+collect_terms:
+  Animal fibre like: AF
+  Cellulose: NP
+  Cellulose Triacetate: CA
+  Cellulose acetate: CA
+  Cellulose like: NP
+  EPR: PEPP
+  EVA wax: EVA
+  Ethylene propylene rubber: PEPP
+  HDPE: PE
+  LDPE: PE
+  LLDPE: PE
+  Mixture: PEPP
+  Morphotype 1: PEPP
+  Morphotype 2: PEPP
+  NP_af: AF
+  NP_beewax: NP
+  NP_chitin: NP
+  NP_coal: NP
+  NP_p: NP
+  Nylon: PA
+  'Nylon ': PA
+  Other PE: PEPP
+  PE Misc: PE
+  PE/PP mix: PEPP
+  PEVA: EVA
+  PEst: Pest
+  PMMA: PMMA
+  'PS ': PS
+  Poly(amide): PA
+  Poly(ethylene): PE
+  Poly(ethylene) + fouling: PE
+  Poly(ethylene) like: PEPP
+  Poly(propylene): PP
+  Poly(propylene) like: PEPP
+  Poly(styrene): PS
+  Poly(urethane): PU
+  Poly(vinylchloride): PVC
+  Unknown PE: PE
+  'Unknown PE ': PE
+  d-PE: PE
+current_run: 0
+data(%) for testing: 0.33
+data(%) for validation: 0.33
+datasets:
+  Brignac:
+    format: .csv
+    label_column: ART-FT-IR polymer ID
+    name: Brignac
+    path: ./data/plain_Brignac.csv
+    trainable: true
+    type: file
+  Carbery:
+    format: .csv
+    label_column: Label
+    name: Carbery
+    path: ./data/Carbery.csv
+    trainable: true
+    type: file
+  Jung:
+    format: .csv
+    label_column: identified
+    name: Jung
+    path: ./data/plain_jung_data.csv
+    trainable: true
+    type: file
+  Kedzierski:
+    format: .csv
+    label_column: 'Interpretation '
+    name: Kedzierski
+    path: ./data/D4_4_publication.csv
+    trainable: true
+    type: file
+  OpenSpeccy:
+    format: .csv
+    label_column: Relabel
+    name: OpenSpeccy
+    path: ./data/openspeccycombo.csv
+    trainable: true
+    type: file
+  Primpke:
+    format: .csv
+    label_column: Label
+    name: Primpke
+    path: ./data/Primpke_cleaned_utf8.csv
+    trainable: true
+    type: file
+ignore_classes:
+- PP/PET mix
+- Poly(vinylidene fluoride)
+- PP/PMMA mix
+- Phthalate
+- phthalate
+- Unidentifiable
+- 'Unidentifiable '
+- Misc
+- noInfo
+- Petroleum wax
+- ABS
+- Latex
+- Non-plastic
+- none
+- silicone
+- PBT
+- PVA
+- NP_sand
+- NP_amber
+- polybutene
+- PLA
+- Unknown
+loss:
+  label_smoothing: 0.05
+  name: cce
+max_epochs: 100000000
+minimum_change: 0.0001
+mode_correction: beer-lambert
+model_name: Final_MP_FTIR
+models_to_train: 10
+monitor patience: 50
+monitor_goal: min
+monitor_metric: loss
+network_layers:
+- layer_activation: relu
+  layer_bias: bias
+  layer_group: input
+  layertype: dense
+  neurons: auto
+  regularization: null
+- layer_group: hidden
+  layertype: dropout
+  rate: 0.15
+- layer_activation: relu
+  layer_bias: bias
+  layer_group: hidden
+  layertype: dense
+  neurons: 64
+  regularization: l1_l2
+- layer_activation: relu
+  layer_bias: bias
+  layer_group: hidden
+  layertype: dense
+  neurons: 64
+  regularization: l1_l2
+- layer_activation: relu
+  layer_bias: bias
+  layer_group: hidden
+  layertype: dense
+  neurons: 64
+  regularization: l1_l2
+- layer_activation: softmax
+  layer_bias: bias
+  layer_group: output
+  layertype: dense
+  neurons: n/a
+  regularization: null
+optimizer:
+  amsgrad: false
+  beta_1: 0.9
+  beta_2: 0.999
+  clipnorm: null
+  clipvalue: null
+  ema_momentum: 0.9
+  ema_overwrite_frequency: null
+  epsilon: 1.0e-07
+  global_clipnorm: null
+  jit_compile: false
+  learning_rate: 0.001
+  name: Adam
+  use_ema: true
+  weight_decay: null
+oversampler:
+- RandomOverSampler
+pooling - padding: same
+pooling - strides: 2
+pooling - window size: 4
+resize size: 3500
+restore_top_weight: true
+start_from_epoch: 10
+steps_per_epoch: 5
+training_metrics:
+- !!python/tuple
+  - categorical_accuracy
+  - CAC
+- !!python/tuple
+  - precision
+  - PRE
+- !!python/tuple
+  - recall
+  - REC
+- !!python/tuple
+  - auc
+  - AUC
+- !!python/tuple
+  - f1_score_weighted
+  - wF1
+- !!python/tuple
+  - f1_score_macro
+  - F1
+- !!python/tuple
+  - categorical_crossentropy
+  - CCE
+unique: ./trainingoutput/
+use pooling: false
+use resizing: true
+verbose_monitor: 1
+verbose_monitor_CP: 1
+verbose_monitor_ES: 1
