@@ -58,34 +58,8 @@ my_model.evaluate()
 # graphs and saves plots, graphs and figures related to model performance.
 my_model.graph_evaluations()
 
-# saves relevant tables in latex format to the specified path, useful for reporting
+# saves a table in latex format to the specified path, useful for reporting
+# this will show performance on holdout data as well as over individual
+# datasets.
 my_model.evaluations_to_latex()
 #%%
-# --------------------------- EXTRAS ------------------------------------------
-# We can also look at things directly, as everything is retained
-#for example, lets look at a the F1 score for the carbery dataset
-print(my_model.run_config["Evaluation"]["individual_datasets"]["Carbery"]["F1"])
-# print the predicitons for all data
-print(my_model.run_config["Evaluation"]["all_evaluation"]["prediction_values"])
-# get the predicitons
-predictions = my_model.run_config["Evaluation"]["all_evaluation"]["prediction_values"]
-# get the column with the maximum value
-predictions_maxval = predictions.argmax(1)
-# replace these numbers with the text labels we are familiar with
-predictions_human = [str(my_model.run_config["reverse_dict"][i]) for i in predictions_maxval]
-# get the original labels
-true_values = my_model.run_config["Evaluation"]["all_evaluation"]["true_values"].argmax(1)
-# make these human readable as well
-true_values = [str(my_model.run_config["reverse_dict"][i]) for i in true_values]
-
-# collect pairs that are incorrect
-incorrect = [tuple(sorted([i,j])) for i,j in zip(predictions_human, true_values) if i!=j]
-# get unique pairs
-unique_incorrect = set(incorrect)
-# count these
-count_dict = {}
-for item in incorrect:
-    if item in count_dict:
-        count_dict[item] += 1
-    else:
-        count_dict[item] = 1
