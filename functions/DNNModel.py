@@ -63,6 +63,10 @@ class base_model:
         self.run_config = self.config.copy()
         
     def build_datasets(self):
+        if not os.path.exists(self.config['unique']+"paretocharts/"):
+            os.mkdir(self.config['unique']+"paretocharts/")
+        self.run_path = f"{self.config['unique']}/run_{self.run}/"
+        
         self.init_newrun()
         self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(self.config.copy())
         self.run_config.update(self.processed_data[f"run_{self.config['current_run']}"])

@@ -531,9 +531,9 @@ def process_datasets(model_parameters):
                 Y = list(incoming_data[0].index)
                 model_parameters['datasets'][datasetdictname]['distribution'] = [(i, list(Y).count(i)) for i in list(set(Y))]
                 #plot pareto chart for this dataset
-                if not os.path.exists(model_parameters['unique']+datasetname+'class_distribution.svg'):
+                if not os.path.exists(model_parameters['unique']+f'paretocharts/{datasetname}class_distribution.svg'):
                     plot_pareto_chart(Y, datasetname, cumsumpercent=True,
-                                      savename = model_parameters['unique']+datasetname+'class_distribution.svg')
+                                      savename = model_parameters['unique']+f'paretocharts/{datasetname}class_distribution.svg')
                 else:
                     print(f"pareto plot of {datasetname} appears to already exist, skipping")
             # If data type is a folder, read in all files and create a dataset for each
@@ -714,7 +714,7 @@ def create_datasets(model_parameters):
                                                finaldf, finaldf_dict, 
                                                minwavenumber, maxwavenumber, 
                                                model_parameters)
-    if not os.path.exists(model_parameters["unique"]+"all_data_pareto.svg"):
+    if not os.path.exists(model_parameters["unique"]+"paretocharts/all_data_pareto.svg"):
         # plot pareto for cumulative data
         plot_pareto_chart(labels = model_parameters["data"].index.to_numpy(), 
                           dataname = "All", 
@@ -724,13 +724,13 @@ def create_datasets(model_parameters):
     else:
         print("pareto plot of all data appears to already exist, skipping")
         
-    if not os.path.exists(model_parameters["unique"]+"training_data_pareto.svg"):
+    if not os.path.exists(model_parameters["unique"]+"paretocharts/training_data_pareto.svg"):
         # plot pareto of the oversampled data
         plotting_data = [model_parameters["reverse_dict"][i] for i in model_parameters["Y_train"].argmax(1)]
         plot_pareto_chart(labels = pd.DataFrame(plotting_data)[0], 
                           dataname = "Balance Training", 
                           cumsumpercent = True,
-                          savename = model_parameters["unique"]+"training_data_pareto.svg", 
+                          savename = model_parameters["unique"]+"paretocharts/training_data_pareto.svg", 
                           dpi=1600)
     else:
          print("pareto plot of oversampled data appears to already exist, skipping")
