@@ -1,5 +1,4 @@
-from functions.DNNModel import base_model, tf
-import os
+from functions.DNNModel import base_model
 
 # basic usage
 
@@ -26,7 +25,7 @@ my_model.build_datasets()
 my_model.build_model()
 
 ### the model summary for example can be accessed using
-my_model.run_config["model"].summary()
+#my_model.run_config["model"].summary()
 
 ## This trains the model and saves output from trianing such as checkpoints.
 
@@ -50,7 +49,7 @@ my_model.run_config["model"].summary()
 #### this will create a folder in your working directory, with relevant data
 #### you can load this using tf.keras.models.load_model("model_save_name")
 
-my_model.train(epochs=10, batch_size=64, save_best=True)
+my_model.train(epochs=100, batch_size=16, save_best=True)
 
 ## Evaluate the model and store under model.run_config["Evaluation"]
 my_model.evaluate()
@@ -63,3 +62,4 @@ my_model.graph_evaluations()
 # datasets.
 my_model.evaluations_to_latex()
 #%%
+my_model.do_runs(2)
