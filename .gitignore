@@ -2,7 +2,6 @@
 /functions/__pycache__
 /__pycache__
 functions/old_Publication_Script.py
-/trainingoutput
 example_data_generator.py
 my_config.yaml
 data/Primpke_cleaned_utf8.csv
@@ -11,3 +10,4 @@ data/plain_Brignac.csv
 data/openspeccycombo.csv
 data/D4_4_publication.csv
 data/Carbery.csv
+/trainingoutput/model_training_checkpoints
