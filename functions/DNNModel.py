@@ -13,6 +13,12 @@ PrettySafeLoader.add_constructor(
     u'tag:yaml.org,2002:python/tuple',
     PrettySafeLoader.construct_python_tuple)
 
+class LoadError(Exception):
+    pass
+
+class SaveError(Exception):
+    pass
+
 
 class base_model:
     def __init__(self):
@@ -20,6 +26,7 @@ class base_model:
         self.processed_data = {}
         self.dnn = None
         self.run = 0
+        self.root_path = "./"
         self.run_path = ""
         self.run_config = {}
         self.config_history = {}
@@ -45,15 +52,18 @@ class base_model:
                 yaml.dump(self.config, f, default_flow_style=False)
         except OSError as e:
             print(f"Error: Failed to write configuration file '{config_file}': {e}")
-
-    def build_datasets(self):
+        
+    def init_newrun(self):
         self.run += 1
         if not os.path.exists(self.config['unique']):
             os.mkdir(self.config['unique'])
         self.run_path = f"{self.config['unique']}/run_{self.run}/"
         if not os.path.exists(self.run_path):
             os.mkdir(self.run_path)
-            
+        self.run_config = self.config.copy()
+        
+    def build_datasets(self):
+        self.init_newrun()
         self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(self.config.copy())
         self.run_config.update(self.processed_data[f"run_{self.config['current_run']}"])
         self.run_update()
@@ -62,7 +72,23 @@ class base_model:
         self.run_config["model"] = ft.make_model(self.run_config)
         self.run_config["model_name"] += f"_run_{str(self.run)}"
         self.run_update()
+    
+    def set_model_weights(self, weights_path):
+        self.build_model(self)
+        self.run_config["model"].load_model.load_weights(weights_path)
         
+    def save_model(self,model_path):
+        try:
+            self.run_config["model"].save(model_path)
+        except:
+            raise SaveError("Uh oh! Looks like maybe you haven't made your model yet?")
+            
+    def load_model(self,model_path):
+        try:
+            self.run_config["model"] = tf.keras.models.load_model(model_path)
+        except:
+            raise LoadError("Uh oh! Looks like maybe you haven't built your data?")
+            
     def train(self, epochs=None, batch_size=None, save_best=None):
         if epochs:
             self.run_config["max_epochs"] = epochs
@@ -77,26 +103,30 @@ class base_model:
 
     def evaluate(self):
         self.run_config = ft.evaluate_model(self.run_config)
-        print("saved evaluation metrics for individual datasets as latex table to {self.config['unique']}/run_{self.run}")
         self.run_update()
 
     def graph_evaluations(self):
-        plot_folder = f"{self.run_path}confusionmatrixplots/"
+        plot_folder = f"{self.config['unique']}/EvalPlots/"
         if not os.path.exists(plot_folder):
             try:
                 cmsavepath = plot_folder
                 os.mkdir(plot_folder)
             except:
                 print("threshold plot folder already exists for this run")
+                
         fp.cm_plotter(self.config_history, plot_folder, self.run)
+        fp.metric_boxplots(self.config_history, 
+                           plot_folder)
+        #fp.tsne_plots(self.config_history)
+        #fp.plot_multi_ROC(y_true_bin, y_pred_bin, n_classes, savename=f"ROCgrid_{run}.svg")
     
     def evaluations_to_latex(self):
-        save_path =  f"{self.run_path}/"
-        fp.eval_to_latex(self.config_history, save_path)
+        fp.eval_to_latex(self.config_history)
     
-    def do_run(self):
-        self.build_dataset()
-        self.build_model()
-        self.train()
-        self.evaluate()
-        self.graph_evaluations()
+    def do_runs(self, number_of_runs):
+        for i in range(number_of_runs):
+            self.build_datasets()
+            self.build_model()
+            self.train()
+            self.evaluate()
+            self.graph_evaluations()
