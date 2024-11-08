@@ -620,14 +620,31 @@ def convert_labels(finaldf, model_parameters):
     
     return X, Y_onehot, model_parameters
 
+class DataSplitError(Exception):
+    pass
+
 def split_data(X, Y_onehot, model_parameters):
-    X_learn, X_test, Y_learn, Y_test = train_test_split(X, Y_onehot,
-                                                        test_size=model_parameters['data(%) for testing'],
-                                                        stratify=Y_onehot)
-    X_train, X_val, Y_train, Y_val = train_test_split(X_learn, Y_learn,
-                                                        test_size=model_parameters['data(%) for testing'],
-                                                        stratify=Y_learn)
-    
+    try:
+        X_learn, X_test, Y_learn, Y_test = train_test_split(X, Y_onehot,
+                                                            test_size=model_parameters['data(%) for testing'],
+                                                            stratify=Y_onehot)
+    except:
+        classes = Y_onehot.argmax(1)
+        classes = [model_parameters["reverse_dict"][i] for i in Y_onehot.argmax(1)]
+        classes, counts = np.unique(np.array(classes), return_counts=True)
+        class_counts = {cl:cnt for cl,cnt in zip(classes, counts)}
+        raise DataSplitError(f"you have such few examples of some classes, such that a holdout/train set cannot be created.\nDatasets were therefore not created.\nYour class counts are:\n{class_counts }")
+    try:
+        X_train, X_val, Y_train, Y_val = train_test_split(X_learn, Y_learn,
+                                                            test_size=model_parameters['data(%) for testing'],
+                                                            stratify=Y_learn)
+    except:
+        classes = Y_onehot.argmax(1)
+        classes = [model_parameters["reverse_dict"][i] for i in Y_onehot.argmax(1)]
+        classes, counts = np.unique(np.array(classes), return_counts=True)
+        class_counts = {cl:cnt for cl,cnt in zip(classes, counts)}
+        raise DataSplitError(f"you have such few examples of some classes, such that the validaiton/train set cannot be created.\nDatasets were therefore not created.\nYour class counts are:\n{class_counts }")
+        
     return X_train, X_val, Y_train, Y_val, X_test, Y_test, model_parameters
 
 def balance_data(X_train, Y_train, model_parameters):

@@ -281,7 +281,7 @@ def train_model(model_parameters):
     except:
         model_name = ''
         
-    log_dir = model_parameters['unique']+'/fit/' + model_name + '/' # set the log directory for tensorboard'
+    log_dir = model_parameters['unique']+'/model_training_checkpoints/' + model_name + '/' # set the log directory for tensorboard'
     
    
     callback_list = []
@@ -447,8 +447,18 @@ def evaluate_model(model_parameters):
             individual_datasets[i] = evaluation
         
         if not model_parameters['datasets'][i]['trainable']:
+            Y = np.array(model_parameters['split_data'][i].index)
+            Y_oh = tf.one_hot(np.vectorize(model_parameters['label_dictionary'].get)(Y),
+                              model_parameters['dimension_out'],
+                              dtype=tf.float32)
+            print(f'evaluating on {i} only')
             predictions = model['model'].predict(np.array(model_parameters['split_data'][i]))
             model_parameters['datasets'][i]['prediction_results'] = predictions
+            evaluation = evaldict(model_parameters['split_data'][i],
+                                  Y_oh,
+                                  model)
+            model_parameters['datasets'][i]['evaluation_results'] = evaluation
+            individual_datasets[i] = evaluation
 
     model.update({
         'train_evaluation':train_evaluation,
