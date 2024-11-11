@@ -89,6 +89,7 @@ def eval_to_latex(config_history):
     
     # Save individual dataset latex tables
     for run in runs:
+        print(f"Getting evaluation results for {run}")
         df = pd.DataFrame(splitmetricsdict[run])
         run_path = run.replace("_history","")
         # Transpose the DataFrame to get datasets as columns and metrics as rows
@@ -117,7 +118,7 @@ def eval_to_latex(config_history):
             # Write a message to the file
             file.write(latex_table)
 
-
+        print(f"Wrote {run} evaluation results to {root_path}{run_path}/{run_path}_performance_over_individual_datasets.tex\n")
     # Save latex table for average
     
     # Round the values to 2 decimal places
@@ -140,6 +141,8 @@ def eval_to_latex(config_history):
     with open(f"{root_path}average_metrics_table.tex", "w") as file:
         # Write the LaTeX table to the file
         file.write(latex_table)
+        
+    print(f"Wrote average evaluation results to {root_path}average_metrics_table.tex")
             
 def metric_boxplots(config_history, savelocation):
     runs = list(config_history.keys())

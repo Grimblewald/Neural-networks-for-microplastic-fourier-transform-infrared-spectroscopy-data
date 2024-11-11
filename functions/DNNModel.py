@@ -19,10 +19,13 @@ class LoadError(Exception):
 class SaveError(Exception):
     pass
 
+class RunError(Exception):
+    pass
 
 class base_model:
     def __init__(self):
         self.config = None
+        self.config_original = None
         self.processed_data = {}
         self.dnn = None
         self.run = 0
@@ -41,6 +44,7 @@ class base_model:
         try:
             with open(config_file, "r") as f:
                 self.config = yaml.load(f,Loader=PrettySafeLoader)
+                self.config_original = self.config.copy()
         except FileNotFoundError:
             print(f"Error: Configuration file '{config_file}' not found.")
         except yaml.YAMLError as e:
@@ -61,6 +65,7 @@ class base_model:
         if not os.path.exists(self.run_path):
             os.mkdir(self.run_path)
         self.run_config = self.config.copy()
+        self.run_config["model"] = None
         
     def build_datasets(self):
         if not os.path.exists(self.config['unique']+"paretocharts/"):
@@ -71,12 +76,17 @@ class base_model:
         self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(self.config.copy())
         self.run_config.update(self.processed_data[f"run_{self.config['current_run']}"])
         self.run_update()
+        print("\nDatasets loaded, preprocessed, split into specified sets, and are ready for use\n")
         
     def build_model(self):
-        self.run_config["model"] = ft.make_model(self.run_config)
-        self.run_config["model_name"] += f"_run_{str(self.run)}"
-        self.run_update()
-    
+        print("building model...")
+        if self.run_config["model"] == None:
+            self.run_config["model"] = ft.make_model(self.run_config)
+            self.run_config["model_name"] += f"_run_{str(self.run)}"
+            self.run_update()
+            print("\nModel built, model summary provided above\n")
+        else:
+            print("\nModel already built, skipping instructions. If you wish to train a new model, initiate a new run\n")
     def set_model_weights(self, weights_path):
         self.build_model(self)
         self.run_config["model"].load_model.load_weights(weights_path)
@@ -113,21 +123,34 @@ class base_model:
         plot_folder = f"{self.config['unique']}/EvalPlots/"
         if not os.path.exists(plot_folder):
             try:
-                cmsavepath = plot_folder
                 os.mkdir(plot_folder)
             except:
                 print("threshold plot folder already exists for this run")
                 
+        print("\nGraphing confusion matrix")
         fp.cm_plotter(self.config_history, plot_folder, self.run)
+        
+        print("\nGraphing performance metrics box plots")
         fp.metric_boxplots(self.config_history, 
                            plot_folder)
+        
+        #print("\nStarting t-SNE plotting...")
         #fp.tsne_plots(self.config_history)
+        
+        #print("\nGraphing ROC curves")
         #fp.plot_multi_ROC(y_true_bin, y_pred_bin, n_classes, savename=f"ROCgrid_{run}.svg")
+        print("saved all plots and related data to {plot_folder}")
     
     def evaluations_to_latex(self):
         fp.eval_to_latex(self.config_history)
     
-    def do_runs(self, number_of_runs):
+    def do_runs(self, number_of_runs=None):
+        if type(number_of_runs)==int:
+            number_of_runs = number_of_runs
+        elif number_of_runs == None:       
+            number_of_runs = self.config["models_to_train"]
+        elif True:
+            raise RunError("Invalid number of runs set, try using 'None' to use config, or some integer amount instead.")
         for i in range(number_of_runs):
             self.build_datasets()
             self.build_model()

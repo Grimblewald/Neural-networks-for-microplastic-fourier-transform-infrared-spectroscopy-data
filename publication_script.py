@@ -8,11 +8,22 @@ my_model = base_model()
 ## Load the a configuration
 my_model.load_config("./config.yaml")
 
-## Change the model name
-my_model.name = "example_model"
+## Change a configuration value
+my_model.config["model_name"] = "Example_Model"
 
 ## Save the updated configuration
 my_model.save_config("./my_config.yaml")
+
+# this will train the model, for the amount of runs specified in the config
+# file, or for the interger amount you pass as an argument, overiding the
+# amount speficied in the configuration file
+## this will build datasets, initialize a new model, train it, evaluate it,
+## plot evaluations, and save latex tables for evaluations.
+#my_model.do_runs() #TODO uncomment this
+
+#------------------------------------------------------------------------------
+# Altrantively, you could take the steps the `do_runs()` funciton takes
+# Manually.
 
 ## Consturcts datasets, accessible via to model.processed_data
 ### "processed_data" is a dictionary
@@ -26,8 +37,9 @@ my_model.build_model()
 
 ### the model summary for example can be accessed using
 #my_model.run_config["model"].summary()
-
-## This trains the model and saves output from trianing such as checkpoints.
+# The following trains the current run's model further and saves output from 
+# trianing such as checkpoints to that run's folder.
+## You could, if you wanted, run this 
 
 ### save path for the checkpoints is  f'{config['unique']}/fit/{config.model_name}/checkpoint'
 ### For sake of example, epoch is set to 1, which overides whatever is set in the config.
@@ -48,18 +60,10 @@ my_model.build_model()
 #### my_model.run_config["model"].save("model_save_name")
 #### this will create a folder in your working directory, with relevant data
 #### you can load this using tf.keras.models.load_model("model_save_name")
+my_model.train(epochs=1, batch_size=16, save_best=True)
 
-my_model.train(epochs=100, batch_size=16, save_best=True)
-
-## Evaluate the model and store under model.run_config["Evaluation"]
 my_model.evaluate()
 
-# graphs and saves plots, graphs and figures related to model performance.
 my_model.graph_evaluations()
 
-# saves a table in latex format to the specified path, useful for reporting
-# this will show performance on holdout data as well as over individual
-# datasets.
 my_model.evaluations_to_latex()
-#%%
-my_model.do_runs(2)
