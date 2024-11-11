@@ -4,7 +4,7 @@ import functions.ftirmltraining as ft
 import functions.ftirmlplotting as fp
 import tensorflow as tf
 import os
-
+from copy import deepcopy
 class PrettySafeLoader(yaml.SafeLoader):
     def construct_python_tuple(self, node):
         return tuple(self.construct_sequence(node))
@@ -36,15 +36,15 @@ class base_model:
         
     def run_update(self):
         if f"run_{self.run}_history" in self.config_history:
-            self.config_history[f"run_{self.run}_history"].update(self.run_config.copy())
+            self.config_history[f"run_{self.run}_history"].update(deepcopy(self.run_config))
         else:
-            self.config_history[f"run_{self.run}_history"] = self.run_config.copy()
+            self.config_history[f"run_{self.run}_history"] = deepcopy(self.run_config)
 
     def load_config(self, config_file):
         try:
             with open(config_file, "r") as f:
                 self.config = yaml.load(f,Loader=PrettySafeLoader)
-                self.config_original = self.config.copy()
+                self.config_original = deepcopy(self.config)
         except FileNotFoundError:
             print(f"Error: Configuration file '{config_file}' not found.")
         except yaml.YAMLError as e:
@@ -64,7 +64,7 @@ class base_model:
         self.run_path = f"{self.config['unique']}/run_{self.run}/"
         if not os.path.exists(self.run_path):
             os.mkdir(self.run_path)
-        self.run_config = self.config.copy()
+        self.run_config = deepcopy(self.config)
         self.run_config["model"] = None
         
     def build_datasets(self):
@@ -73,7 +73,7 @@ class base_model:
         self.run_path = f"{self.config['unique']}/run_{self.run}/"
         
         self.init_newrun()
-        self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(self.config.copy())
+        self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(deepcopy(self.config))
         self.run_config.update(self.processed_data[f"run_{self.config['current_run']}"])
         self.run_update()
         print("\nDatasets loaded, preprocessed, split into specified sets, and are ready for use\n")

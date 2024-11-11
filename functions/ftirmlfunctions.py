@@ -714,7 +714,7 @@ def create_datasets(model_parameters):
                                                finaldf, finaldf_dict, 
                                                minwavenumber, maxwavenumber, 
                                                model_parameters)
-    if not os.path.exists(model_parameters["unique"]+"paretocharts/all_data_pareto.svg"):
+    if not os.path.exists(model_parameters["unique"]+"all_data_pareto.svg"):
         # plot pareto for cumulative data
         plot_pareto_chart(labels = model_parameters["data"].index.to_numpy(), 
                           dataname = "All", 
