@@ -1,3 +1,6 @@
+# Work in progress
+There are elements of this repository which are clearly unfinished, these are things that can only be finished after the peer-review process concludes and the related work is published. Currently, this is made public to make it accessible to peer-reviewers.
+
 # Neural Networks for Microplastic Fourier Transform Infrared Spectroscopy Data
 
 This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics.
