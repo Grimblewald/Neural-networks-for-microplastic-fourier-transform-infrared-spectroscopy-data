@@ -88,3 +88,7 @@ To use this code interactively, we recommend running it in Spyder:
 2. Click "Run" in the toolbar, or press F5. This will execute the entire script, displaying plots in the Spyder plots panel and saving them to the output folder.
 
 Or simply run methods as required.
+
+# Referencing
+
+To reference this work, please use {ref block}
