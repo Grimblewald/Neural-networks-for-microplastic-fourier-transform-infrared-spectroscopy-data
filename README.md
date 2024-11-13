@@ -67,6 +67,10 @@ Python version 3.10–3.12 is required (untested in later versions). The code ut
 
 We recommend creating a virtual environment to install the necessary packages. An installation script is provided, which you can use to set up a virtual environment and install relevent files. This script will work after you set up Python, `pip`, and `venv`. Python must be on path.
 
+### Installation Instructions
+1. Download and install python. We assume Non windows users know how to find and install python. Windows users can use the following links to download a [32 bit installer](https://www.python.org/ftp/python/3.11.9/python-3.11.9.exe) or a [64 bit installer](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe). 
+2. Once installed, open a python terminal 
+3. 
 ## Usage
 
 To use this code interactively, we recommend running it in Spyder:
