@@ -74,6 +74,7 @@ class base_model:
         self.run_path = f"{self.config['unique']}/run_{self.run}/"
         
         self.init_newrun()
+        print(f"\nInitiated a new run, run index is set to {self.run}")
         self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(deepcopy(self.config))
         self.run_config.update(self.processed_data[f"run_{self.config['current_run']}"])
         self.run_update()
