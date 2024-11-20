@@ -3,7 +3,7 @@ There are elements of this repository which are clearly unfinished, these are th
 
 # Neural Networks for Microplastic Fourier Transform Infrared Spectroscopy Data
 
-This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. The gif below this line (it is a large file, you might need to wait a few moments) showcases the outputt space dimensionally reduced to 3 components using t-SNE. Note that lack of clear decision boundaries comes from the colouring of points being based on human labels, not model predictions, where when human and model labels disagree, the model tends to be correct.
+This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. The gif below this line (it is a large file, you might need to wait a few moments) showcases the outputt space dimensionally reduced to 3 components using t-SNE. Note that lack of clear decision boundaries comes from the colouring of points being based on human labels, not model predictions. There is a significant amount of mislabelled data in the original training data. From areas inspected, "mislablled" samples appear to be accuratly placed.
 
 ![3 component tsne gif](https://github.com/Grimblewald/Neural-networks-for-microplastic-fourier-transform-infrared-spectroscopy-data/blob/main/tsne_3d2.gif?raw=true)
 
