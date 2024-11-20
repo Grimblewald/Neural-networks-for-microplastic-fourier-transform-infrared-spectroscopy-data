@@ -3,7 +3,9 @@ There are elements of this repository which are clearly unfinished, these are th
 
 # Neural Networks for Microplastic Fourier Transform Infrared Spectroscopy Data
 
-This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. 
+This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. The model showcased in this work allows practitioners to partition FTIR data from environmental microplastics like in this gif.
+
+![tsne_3d2.gif]
 
 The easiest way to run this code and explore the repository is through the google colab notebook found [here](https://colab.research.google.com/drive/17tDtN3pFHYkQCpytrv1TYdfoJkn8snik?usp=sharing), however this was written in a way where it should also run in jupyter with minimal editing (widgets were coded so they don't rely on colab specific features). The repository also includes example output, as produced by `publication_script.py` in the folder `trianingoutput`.
 
