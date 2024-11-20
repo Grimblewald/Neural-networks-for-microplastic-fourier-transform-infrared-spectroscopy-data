@@ -3,9 +3,11 @@ There are elements of this repository which are clearly unfinished, these are th
 
 # Neural Networks for Microplastic Fourier Transform Infrared Spectroscopy Data
 
-This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. It also includes example output, as produced by `publication_script.py` in the folder `trianingoutput`.
+This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. 
 
-The code in this repository complements the research published in **[Link to publication]**. It represents a snapshot of the work at the time of publication and may not reflect the latest developments. For ongoing updates, we recommend visiting the actively maintained version of this repository at **[Link to active repository]**. Additionally, we welcome discussions, support, feedback, and community engagement through our **[Community Link]**.
+The easiest way to run this code and explore the repository is through the google colab notebook found [here](https://colab.research.google.com/drive/17tDtN3pFHYkQCpytrv1TYdfoJkn8snik?usp=sharing), however this was written in a way where it should also run in jupyter with minimal editing (widgets were coded so they don't rely on colab specific features). The repository also includes example output, as produced by `publication_script.py` in the folder `trianingoutput`.
+
+The code in this repository compliments the research published in **[Link to publication]**. It represents a snapshot of the work at the time of publication and may not reflect the latest developments. For ongoing updates, we recommend visiting the actively maintained version of this repository at **[Link to active repository]**. Additionally, we welcome discussions, support, feedback, and community engagement through our **[Community Link]**.
 
 ## Code Overview
 
@@ -66,6 +68,8 @@ If using publicly available data referenced (with the exception of OpenSpeccy), 
 Python version 3.10–3.12 is required (untested in later versions). The code utilizes `match-case` syntax, which was introduced in Python 3.10. Required packages include:
 - `spyder`, `tensorflow`, `numpy`, `pandas`, `matplotlib`, `scikit-learn`, `seaborn`, and `scipy`.
 
+## Quick Start
+The fastest way to get started and inspect the code output is to simply run the google collab notebook we make avaliable via this [link](https://colab.research.google.com/drive/17tDtN3pFHYkQCpytrv1TYdfoJkn8snik?usp=sharing)
 ## Installation
 
 We recommend creating a virtual environment to install the necessary packages. An installation script is provided, which you can use to set up a virtual environment and install relevent files. This script will work after you set up Python, `pip`, and `venv`. Python must be on path.
