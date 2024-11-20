@@ -69,7 +69,7 @@ Python version 3.10–3.12 is required (untested in later versions). The code ut
 - `spyder`, `tensorflow`, `numpy`, `pandas`, `matplotlib`, `scikit-learn`, `seaborn`, and `scipy`.
 
 ## Quick Start
-The fastest way to get started and inspect the code output is to simply run the google collab notebook we make avaliable via this [link](https://colab.research.google.com/drive/17tDtN3pFHYkQCpytrv1TYdfoJkn8snik?usp=sharing)
+The fastest way to get started and inspect the code output is to simply run the google collab notebook we make avaliable via this [![link](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17tDtN3pFHYkQCpytrv1TYdfoJkn8snik?usp=sharing)
 ## Installation
 
 We recommend creating a virtual environment to install the necessary packages. An installation script is provided, which you can use to set up a virtual environment and install relevent files. This script will work after you set up Python, `pip`, and `venv`. Python must be on path.
