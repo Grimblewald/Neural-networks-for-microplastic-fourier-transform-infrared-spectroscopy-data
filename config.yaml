@@ -60,50 +60,8 @@ datasets:
     format: .csv
     label_column: class
     name: Example
-    path: ./data/Example_Data_2_mean_100_per_class.csv
+    path: ./data/Example_Data.csv
     trainable: true
-    type: file
-  Brignac:
-    format: .csv
-    label_column: ART-FT-IR polymer ID
-    name: Brignac
-    path: ./data/plain_Brignac.csv
-    trainable: false
-    type: file
-  Carbery:
-    format: .csv
-    label_column: Label
-    name: Carbery
-    path: ./data/Carbery.csv
-    trainable: false
-    type: file
-  Jung:
-    format: .csv
-    label_column: identified
-    name: Jung
-    path: ./data/plain_jung_data.csv
-    trainable: false
-    type: file
-  Kedzierski:
-    format: .csv
-    label_column: 'Interpretation '
-    name: Kedzierski
-    path: ./data/D4_4_publication.csv
-    trainable: false
-    type: file
-  OpenSpeccy:
-    format: .csv
-    label_column: Relabel
-    name: OpenSpeccy
-    path: ./data/openspeccycombo.csv
-    trainable: false
-    type: file
-  Primpke:
-    format: .csv
-    label_column: Label
-    name: Primpke
-    path: ./data/Primpke_cleaned_utf8.csv
-    trainable: false
     type: file
 ignore_classes:
 - PP/PET mix
