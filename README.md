@@ -3,7 +3,7 @@ There are elements of this repository which are clearly unfinished, these are th
 
 # Neural Networks for Microplastic Fourier Transform Infrared Spectroscopy Data
 
-This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. The gif below this line (it is a large file, you might need to wait a few moments) showcases the outputt space dimensionally reduced to 3 components using t-SNE. Note that lack of clear decision boundaries comes from the colouring of points being based on human labels, not model predictions. There is a significant amount of mislabelled data in the original training data. From areas inspected, "mislablled" samples appear to be accuratly placed.
+This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. The gif below this line (it is a large file, you might need to wait a few moments) showcases the output space dimensionally reduced to 3 components using t-SNE. Note that lack of clear decision boundaries comes from the colouring of points being based on human labels, not model predictions. There is a significant amount of mislabelled data in the original training data. From areas inspected, "mislabelled" samples appear to be accurately placed.
 
 ![3 component tsne gif](https://github.com/Grimblewald/Neural-networks-for-microplastic-fourier-transform-infrared-spectroscopy-data/blob/main/tsne_3d2.gif?raw=true)
 
@@ -63,7 +63,7 @@ When using your own data:
 - Wavenumber columns (representing intensities) must use numeric headers, while non-numeric columns should have text headers.
 - Data labels must be included in a designated column.
   
-If using publicly available data referenced (with the exception of OpenSpeccy), the provided formats should work. For custom datasets, specify the target column and apply any necessary relabeling rules, either directly or by specifying these in the config.
+If using publicly available data referenced (with the exception of OpenSpeccy), the provided formats should work. For custom datasets, specify the target column and apply any necessary relabelling rules, either directly or by specifying these in the config.
 
 ## Requirements
 
@@ -74,20 +74,20 @@ Python version 3.10–3.12 is required (untested in later versions). The code ut
 The fastest way to get started and inspect the code output is to simply run the google collab notebook we make avaliable via this [![link](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17tDtN3pFHYkQCpytrv1TYdfoJkn8snik?usp=sharing)
 ## Installation
 
-We recommend creating a virtual environment to install the necessary packages. An installation script is provided, which you can use to set up a virtual environment and install relevent files. This script will work after you set up Python, `pip`, and `venv`. Python must be on path.
+We recommend creating a virtual environment to install the necessary packages. An installation script is provided, which you can use to set up a virtual environment and install relevant files. This script will work after you set up Python, `pip`, and `venv`. Python must be on path.
 
 ### Installation Instructions
 1. Download and install python. We assume Non windows users know how to find and install python. Windows users can use the following links to download a [32 bit installer](https://www.python.org/ftp/python/3.11.9/python-3.11.9.exe) or a [64 bit installer](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe).
 2. Download and install git (or download this repository manually)
 4. Once installed, open a python terminal 
-5. Navigate to the folder where the repositroy is stored, or will be stored
+5. Navigate to the folder where the repository is stored, or will be stored
 6. If you haven't downloaded the repository, do so using `git clone <link>`
 7. use `cd <path>` to navigate into the repository folder
 8. install requirements using `pip install -r requirements.txt`
 9. launch spyder by entering `spyder` into terminal
 10. open the script `publication_script.py`
 11. Run this, either line by line or as a whole.
-12. Explore results either within spyder, or in the output folder.
+12. Explore results either within Spyder, or in the output folder.
 
 ## Usage
 
