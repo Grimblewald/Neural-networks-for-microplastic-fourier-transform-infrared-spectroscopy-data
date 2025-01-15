@@ -1,6 +1,3 @@
-# Work in progress
-There are elements of this repository which are clearly unfinished, these are things that can only be finished after the peer-review process concludes and the related work is published. Currently, this is made public to make it accessible to peer-reviewers.
-
 # Neural Networks for Microplastic Fourier Transform Infrared Spectroscopy Data
 
 This repository provides code for training artificial neural networks, with a specific focus on models that support automated classification of Fourier Transform Infrared (FTIR) spectroscopic data related to microplastics. The gif below this line (it is a large file, you might need to wait a few moments) showcases the output space dimensionally reduced to 3 components using t-SNE. Note that lack of clear decision boundaries comes from the colouring of points being based on human labels, not model predictions. There is a significant amount of mislabelled data in the original training data. From areas inspected, "mislabelled" samples appear to be accurately placed.
@@ -100,4 +97,21 @@ Or simply run methods as required.
 
 # Referencing
 
-To reference this work, please use {ref block}
+This work relates to the publication found by following this [link](https://doi.org/10.1016/j.jhazmat.2024.136989)
+To reference this work, please use your favourite reference manager or use the following BibTeX reference.
+
+```
+@article{herb_machine_2024,
+  title = {Machine {{Learning Outperforms Humans}} in {{Microplastic Characterization}} and {{Reveals Human Labelling Errors}} in {{FTIR Data}}},
+  author = {Herb, Frithjof and Boley, Mario and Fong, Wye-Khay},
+  date = {2024-12},
+  journaltitle = {Journal of Hazardous Materials},
+  shortjournal = {Journal of Hazardous Materials},
+  pages = {136989},
+  issn = {03043894},
+  doi = {10.1016/j.jhazmat.2024.136989},
+  url = {https://linkinghub.elsevier.com/retrieve/pii/S0304389424035702},
+  urldate = {2025-01-15},
+  langid = {english}
+}
+```
