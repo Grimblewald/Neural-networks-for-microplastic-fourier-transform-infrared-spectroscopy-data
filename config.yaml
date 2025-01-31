@@ -85,16 +85,15 @@ ignore_classes:
 - NP_amber
 - polybutene
 - PLA
-- Unknown
 loss:
   label_smoothing: 0.05
   name: cce
 max_epochs: 100000000
-minimum_change: 0.0001
+minimum_change: 0.01
 mode_correction: beer-lambert
 model_name: Final_MP_FTIR
 models_to_train: 10
-monitor patience: 50
+monitor patience: 20
 monitor_goal: min
 monitor_metric: loss
 network_layers:
@@ -153,7 +152,7 @@ pooling - strides: 2
 pooling - window size: 4
 resize size: 3500
 restore_top_weight: true
-start_from_epoch: 10
+start_from_epoch: 2
 steps_per_epoch: 5
 training_metrics:
 - !!python/tuple
