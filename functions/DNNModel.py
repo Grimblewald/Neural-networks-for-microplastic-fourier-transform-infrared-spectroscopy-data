@@ -68,12 +68,13 @@ class base_model:
         self.run_config = deepcopy(self.config)
         self.run_config["model"] = None
         
-    def build_datasets(self):
+    def build_datasets(self, init_newrun=True):
         if not os.path.exists(self.config['unique']+"paretocharts/"):
             os.mkdir(self.config['unique']+"paretocharts/")
         self.run_path = f"{self.config['unique']}/run_{self.run}/"
         
-        self.init_newrun()
+        if init_newrun:
+            self.init_newrun()
         print(f"\nInitiated a new run, run index is set to {self.run}")
         self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(deepcopy(self.config))
         self.run_config.update(self.processed_data[f"run_{self.config['current_run']}"])
@@ -136,10 +137,11 @@ class base_model:
         fp.metric_boxplots(self.config_history, 
                            plot_folder)
         
-        #print("\nStarting t-SNE plotting...")
+        #print("\nStarting t-SNE plotting...") #TODO - adapt for this
         #fp.tsne_plots(self.config_history)
         
-        #print("\nGraphing ROC curves")
+        #print("\nGraphing ROC curves") #TODO - adapt for this
+        #fp.tsne_plots(self.config_history)
         #fp.plot_multi_ROC(y_true_bin, y_pred_bin, n_classes, savename=f"ROCgrid_{run}.svg")
         print("saved all plots and related data to {plot_folder}")
     
