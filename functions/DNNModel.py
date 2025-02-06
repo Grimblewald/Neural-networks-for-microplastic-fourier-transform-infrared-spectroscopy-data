@@ -75,7 +75,7 @@ class base_model:
         
         if init_newrun:
             self.init_newrun()
-        print(f"\nInitiated a new run, run index is set to {self.run}")
+            print(f"\nInitiated a new run, run index is set to {self.run}")
         self.processed_data[f"run_{self.config['current_run']}"] = ff.create_datasets(deepcopy(self.config))
         self.run_config.update(self.processed_data[f"run_{self.config['current_run']}"])
         self.run_update()

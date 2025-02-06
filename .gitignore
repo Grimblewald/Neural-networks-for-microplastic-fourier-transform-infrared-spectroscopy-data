@@ -11,3 +11,4 @@ data/openspeccycombo.csv
 data/D4_4_publication.csv
 data/Carbery.csv
 /trainingoutput/model_training_checkpoints
+/trainingoutput
