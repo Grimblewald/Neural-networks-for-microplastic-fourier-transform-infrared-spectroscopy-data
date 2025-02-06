@@ -1,0 +1,1 @@
+The files in this folder were deleted to save space / be more resource concious. In this folder (if you run scripts) you will find models, training history, etc.
