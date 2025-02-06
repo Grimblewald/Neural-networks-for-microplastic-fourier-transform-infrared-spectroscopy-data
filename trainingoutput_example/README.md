@@ -1,2 +1,2 @@
 # Explanation of Training Output Example provided
-The exampels provided here are for the limited dataset provided and serve as an example of what you can expect to see when running this script. The performance indicated by this model is not reflective of what has been acheived with this tool. Instead, we refer readers to the publication which details what we have achieved.
+The examples provided here are for the limited dataset provided, and serve as an example of what you can expect to see when running the script. The performance indicated by this model is not reflective of what has been acheived with this tool. Instead, we refer readers to the publication which details what we have achieved.
