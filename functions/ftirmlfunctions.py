@@ -26,11 +26,12 @@ from imblearn.over_sampling import RandomOverSampler, KMeansSMOTE, SVMSMOTE, ADA
 from scipy.sparse import csc_matrix, eye, diags # for creating sparse matrices
 from scipy.sparse.linalg import spsolve # for solving sparse linear systems
 
+from tensorflow.keras.saving import register_keras_serializable
 
 def funcy_dics(params,func):
     return func(**params)
 
-@keras.saving.register_keras_serializable()
+@register_keras_serializable()
 def categorical_focal_loss(name='categorical_focal_loss', gamma=2.0):
     """
     Focal loss for multi-classification problem.

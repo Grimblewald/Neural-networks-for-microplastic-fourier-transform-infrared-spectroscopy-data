@@ -7,7 +7,6 @@ my_model = base_model()
 
 ## Load the a configuration
 my_model.load_config("./config.yaml")
-my_model.load_config("./my_config.yaml")
 
 ## Change a configuration value
 my_model.config["model_name"] = "Example_Model"
@@ -62,7 +61,7 @@ my_model.run_config["model"].summary()
 #### my_model.run_config["model"].save("model_save_name")
 #### this will create a folder in your working directory, with relevant data
 #### you can load this using tf.keras.models.load_model("model_save_name")
-my_model.train(epochs=10, batch_size=160, save_best=True)
+my_model.train(epochs=2, batch_size=320, save_best=True)
 
 # You can evaluate the current model using
 my_model.evaluate()

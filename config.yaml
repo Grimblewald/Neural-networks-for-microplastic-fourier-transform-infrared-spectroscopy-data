@@ -140,11 +140,9 @@ optimizer:
   ema_overwrite_frequency: null
   epsilon: 1.0e-07
   global_clipnorm: null
-  jit_compile: false
   learning_rate: 0.001
   name: Adam
   use_ema: true
-  weight_decay: null
 oversampler:
 - RandomOverSampler
 pooling - padding: same

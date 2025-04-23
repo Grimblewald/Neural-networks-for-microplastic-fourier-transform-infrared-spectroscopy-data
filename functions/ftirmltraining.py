@@ -7,6 +7,8 @@ import tensorflow as tf
 from tensorflow import keras
 from keras import layers
 from keras.utils import to_categorical
+from tensorflow.keras.regularizers import l1_l2
+
 import time
 
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -145,7 +147,11 @@ def make_model(model_parameters):
         'nobias'    : False,
         'bias'      : True
         }
-    
+    reg_dict = {
+        "l1":l1_l2(l1=0.01),
+        "l2":l1_l2(l2=0.01),
+        "l1_l2":l1_l2(l1=0.01, l2=0.01)
+        }
     model = keras.Sequential(name=model_parameters['model_name'])
     layercount = 0
     
@@ -177,7 +183,7 @@ def make_model(model_parameters):
                         model.add(layerdict[layer['layertype']](
                             units = layer['neurons'],
                             activation = layer['layer_activation'],
-                            kernel_regularizer=layer['regularization'],                            
+                            kernel_regularizer=reg_dict[layer['regularization']],                            
                             use_bias=layerdict[layer['layer_bias']],
                             input_dim = indim,
                             name = f"{modelname}-hidden-layer_{layercount}"
@@ -251,7 +257,7 @@ def make_model(model_parameters):
     
     model.build()
     model.summary()
-    initial_weights = os.path.join(tempfile.mkdtemp(), 'initial_weights')
+    initial_weights = os.path.join(tempfile.mkdtemp(), 'initial_weights.weights.h5')
     model.save_weights(initial_weights)
         
     return model
@@ -281,7 +287,7 @@ def train_model(model_parameters):
     except:
         model_name = ''
         
-    log_dir = model_parameters['unique']+'/model_training_checkpoints/' + model_name + '/' # set the log directory for tensorboard'
+    log_dir = model_parameters['unique']+'model_training_checkpoints/' + model_name + '/' # set the log directory for tensorboard'
     
    
     callback_list = []
@@ -313,7 +319,7 @@ def train_model(model_parameters):
         
     if model_parameters["checkpoints"]["SaveCheckpoints"]:
         save_checkpoints = tf.keras.callbacks.ModelCheckpoint(
-            filepath=log_dir+'/checkpoint/',
+            filepath=log_dir+'checkpoint/checkpoint.weights.h5',
             save_weights_only=True,
             monitor=model_parameters['monitor_metric'],
             mode=model_parameters['monitor_goal'],
