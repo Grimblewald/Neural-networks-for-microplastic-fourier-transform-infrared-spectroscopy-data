@@ -150,7 +150,9 @@ def make_model(model_parameters):
     reg_dict = {
         "l1":l1_l2(l1=0.01),
         "l2":l1_l2(l2=0.01),
-        "l1_l2":l1_l2(l1=0.01, l2=0.01)
+        "l1_l2":l1_l2(l1=0.01, l2=0.01),
+        "None":None,
+        None:None
         }
     model = keras.Sequential(name=model_parameters['model_name'])
     layercount = 0
