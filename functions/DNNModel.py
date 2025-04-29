@@ -123,7 +123,7 @@ class base_model:
         self.run_update()
 
     def graph_evaluations(self):
-        plot_folder = f"{self.config['unique']}/EvalPlots/"
+        plot_folder = f"{self.config['unique']}/run_{self.run}/EvalPlots/"EvalPlots/"
         if not os.path.exists(plot_folder):
             try:
                 os.mkdir(plot_folder)
@@ -143,7 +143,7 @@ class base_model:
         #print("\nGraphing ROC curves") #TODO - adapt for this
         #fp.tsne_plots(self.config_history)
         #fp.plot_multi_ROC(y_true_bin, y_pred_bin, n_classes, savename=f"ROCgrid_{run}.svg")
-        print("saved all plots and related data to {plot_folder}")
+        print(f"saved all plots and related data to {plot_folder}")
     
     def evaluations_to_latex(self):
         fp.eval_to_latex(self.config_history)
