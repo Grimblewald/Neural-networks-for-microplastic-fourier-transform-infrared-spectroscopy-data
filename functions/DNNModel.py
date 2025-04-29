@@ -123,7 +123,7 @@ class base_model:
         self.run_update()
 
     def graph_evaluations(self):
-        plot_folder = f"{self.config['unique']}/run_{self.run}/EvalPlots/"EvalPlots/"
+        plot_folder = f"{self.config['unique']}/run_{self.run}/EvalPlots/"
         if not os.path.exists(plot_folder):
             try:
                 os.mkdir(plot_folder)
