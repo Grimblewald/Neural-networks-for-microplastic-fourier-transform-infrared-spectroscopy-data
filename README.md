@@ -15,7 +15,7 @@ The code was initially developed with a functional programming approach but has 
 The main class is `DNNModel`, which provides a set of methods to configure, train, and evaluate models:
 
 - **`load_config`**  
-  Loads a configuration file in YAML format. An example is included in this repository, and you can also generate a custom YAML config file at **[Link to YAML generator]**.
+  Loads a configuration file in YAML format. An example is included in this repository.
 
 - **`save_config`**  
   Saves your current configuration, including models, results, and processed datasets. Be cautious, as this will overwrite existing files if not specified otherwise.
@@ -39,7 +39,7 @@ The main class is `DNNModel`, which provides a set of methods to configure, trai
   Trains the model on the data designated for training.
 
 - **`evaluate`**  
-  Evaluates the model's performance across all data.
+  Evaluates the model's performance across all data subsets.
 
 - **`graph_evaluations`**  
   Generates and saves evaluation-related plots to the results folder.
